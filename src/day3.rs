@@ -10,7 +10,6 @@ enum TileTypeResult {
   OutOfBounds
 }
 
-/// Parses one line returning
 fn get_chars_in_string(line: &str) -> Vec<char> {
   line
     .chars()
@@ -69,13 +68,18 @@ fn day_3_part_1(map: &TileMap) -> u32 {
 
 #[aoc(day3, part2)]
 fn day3(map: &TileMap) -> u32 {
-  let trees = [
-    get_trees_in_path(map, 1, 1),
-    get_trees_in_path(map, 3, 1),
-    get_trees_in_path(map, 5, 1),
-    get_trees_in_path(map, 7, 1),
-    get_trees_in_path(map, 1, 2),
+  let directions = [
+    (1, 1),
+    (3, 1),
+    (5, 1),
+    (7, 1),
+    (1, 2),
   ];
+
+  let trees: Vec<u32> = directions
+    .iter()
+    .map(|settings| get_trees_in_path(map, settings.0, settings.1))
+    .collect();
 
   let mut result = 1;
   for x in trees.iter() {
